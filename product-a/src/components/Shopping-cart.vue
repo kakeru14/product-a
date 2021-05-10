@@ -17,7 +17,7 @@
           </tr>
       </table>
       <h2 v-show="cartTotalPrice()">消費税 : {{Math.round(cartTotalPrice()*0.1)}}円</h2>
-      <h2 v-show="cartTotalPrice()">税込金額 : {{Math.round(cartTotalPrice()*1.1)}}円</h2>
+      <h2 v-show="cartTotalPrice()">ご注文金額合計 : {{Math.round(cartTotalPrice()*1.1)}}円（税込）</h2>
       
       <p v-show="!this.shopcart.length">カートに商品がありません</p>
 
