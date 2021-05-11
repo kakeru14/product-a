@@ -1,11 +1,16 @@
 <template>
   <div>
-    注文内容確認
+    <OrderForm/>
   </div>
 </template>
 
 <script>
+import OrderForm from '../components/OrderForm.vue';
+
 export default {
-  
+  name: 'App',
+  components: {
+    OrderForm
+  },
 }
 </script>
