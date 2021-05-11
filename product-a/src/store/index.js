@@ -9,7 +9,11 @@ export default new Vuex.Store({
     items: [
       {
         id: 1,
+<<<<<<< HEAD
         imagePath: "../../src/assets/1.jpg",
+=======
+        imagePath: "1.jpg",
+>>>>>>> 6d9f13a69c6368f480dad41f2bc852ca132e872e
         name: "ビニールプール",
         price: 1490,
         description: `製品サイズ:(約)幅157×奥行157×高さ122cm
@@ -31,7 +35,7 @@ export default new Vuex.Store({
       },
       {
         id: 2,
-        imagePath: "../../assets/2.jpg",
+        imagePath: "2.jpg",
         name: "ラジコンバギー ボブキャットEX",
         price: 1490,
         description: `防塵防水仕様1/20スケールラジコンバギー。
@@ -45,7 +49,7 @@ export default new Vuex.Store({
       },
       {
         id: 3,
-        imagePath: "../../assets/3.jpg",
+        imagePath: "3.jpg",
         name: "シルバニアファミリーSylvanian Families(赤い屋根の大きなお家",
         price: 1490,
         description: `お家は90度や180度に開いたり、閉じたりして遊ぶことができます。
@@ -56,7 +60,7 @@ export default new Vuex.Store({
       },
       {
         id: 4,
-        imagePath: "../../assets/4.jpg",
+        imagePath: "4.jpg",
         name: "ハピネスチャージプリキュア! キュアライン",
         price: 1900,
         description: `ハピネスチャージプリキュア!が使用するスマホ「キュアライン」が登場!!
@@ -75,7 +79,7 @@ export default new Vuex.Store({
       },
       {
         id: 5,
-        imagePath: "../../assets/5.jpg",
+        imagePath: "5.jpg",
         name: "こえだちゃん キキ & ララ 月のおうち",
         price: 1900,
         description: `過去大ヒットした『キキ＆ララ月のおうち』の復刻版です。
@@ -84,7 +88,7 @@ export default new Vuex.Store({
       },
       {
         id: 6,
-        imagePath: "../../assets/6.jpg",
+        imagePath: "6.jpg",
         name: "キラキラ プリキュアアラモード まぜまぜ変身!スイーツパクトDX",
         price: 2700,
         description: `キラキラ プリキュアアラモードより、まぜまぜ変身!スイーツパクトDXが登場!
@@ -100,7 +104,7 @@ export default new Vuex.Store({
       },
       {
         id: 7,
-        imagePath: "../../assets/7.jpg",
+        imagePath: "7.jpg",
         name: "アンパンマンタウン ようこそ！たのしいパンこうじょうハウス",
         price: 2570,
         description: `遊びやすい2面のドールハウスがラインナップ！
@@ -119,7 +123,7 @@ export default new Vuex.Store({
       },
       {
         id: 8,
-        imagePath: "../../assets/8.jpg",
+        imagePath: "8.jpg",
         name: "人生ゲーム（2016年ver.）",
         price: 2160,
         description: `人生ゲームシリーズのフラッグシップモデルが8年ぶりにリニューアル!! 
@@ -134,7 +138,7 @@ export default new Vuex.Store({
       },
       {
         id: 9,
-        imagePath: "../../assets/9.jpg",
+        imagePath: "9.jpg",
         name: "野球盤 3Dエース",
         price: 2700,
         description: `野球盤史上初！｢3Dピッチング機能｣を搭載し、ピッチャーの投球が本物のように飛びます！ 
@@ -147,7 +151,7 @@ export default new Vuex.Store({
       },
       {
         id: 10,
-        imagePath: "../../assets/10.jpg",
+        imagePath: "10.jpg",
         name: "ベイブレードバースト　B-86 スターター",
         price: 2160,
         description: `ギミック付きのレイヤー搭載したディフェンスタイプの新型ベイブレード！ 
@@ -159,7 +163,7 @@ export default new Vuex.Store({
       },
       {
         id: 11,
-        imagePath: "../../assets/11.jpg",
+        imagePath: "11.jpg",
         name:
           "仮面ライダーエグゼイド　ダブル装填　DXガシャコン キースラッシャー",
         price: 2700,
@@ -170,7 +174,7 @@ export default new Vuex.Store({
       },
       {
         id: 12,
-        imagePath: "../../assets/12.jpg",
+        imagePath: "12.jpg",
         name: "トミカハイパーシリーズ ドライブヘッド",
         price: 2160,
         description: `石野ジン・石野ミコトの双子が操縦する機動救急警察ハイパーレスキューが開発した警察機能に特化したドライブヘッド。
@@ -183,7 +187,7 @@ export default new Vuex.Store({
       },
       {
         id: 13,
-        imagePath: "../../assets/13.jpg",
+        imagePath: "13.jpg",
         name: "ミニ四駆スターターパック　MAパワータイプ（ブラストアロー",
         price: 2160,
         description: `ブラストアローのキットと、レース参加に欠かせない
@@ -197,7 +201,7 @@ export default new Vuex.Store({
       },
       {
         id: 14,
-        imagePath: "../../assets/14.jpg",
+        imagePath: "14.jpg",
         name: "ミニ四駆スターターパック　MAパワータイプ（ブラストアロー）",
         price: 2980,
         description: `ミニ四駆に熊本県のゆるキャラ、
@@ -207,7 +211,7 @@ export default new Vuex.Store({
       },
       {
         id: 15,
-        imagePath: "../../assets/15.jpg",
+        imagePath: "15.jpg",
         name: "機動戦士ガンダムZZ ダブルゼータガンダム",
         price: 2440,
         description: `待望のMG ダブルゼータガンダム Ver.Kaが遂に登場!! 各部の広い可動域とコア・ブロック・システムの搭載、各形態への変形を実現!`,
@@ -215,7 +219,7 @@ export default new Vuex.Store({
       },
       {
         id: 16,
-        imagePath: "../../assets/16.jpg",
+        imagePath: "16.jpg",
         name: "こえだちゃんと木のおうち",
         price: 2700,
         description: `今度のこえだちゃんは「まほうのカギ」で動きだす！！ カギでうごくよシリーズの「木のおうち」新登場！ 
@@ -228,7 +232,7 @@ export default new Vuex.Store({
       },
       {
         id: 17,
-        imagePath: "../../assets/17.jpg",
+        imagePath: "17.jpg",
         name: "キラペットドーム <アクセパーティー>'",
         price: 2440,
         description: `キラキラのスノードームが作れるおもちゃです! 人形とベースの組み合わせを選んで、
@@ -244,7 +248,7 @@ export default new Vuex.Store({
       },
       {
         id: 18,
-        imagePath: "../../assets/18.jpg",
+        imagePath: "18.jpg",
         name: "おはじきシール ゆめかわDX",
         price: 2700,
         description: `ゆめかわ系のおはじきシールが150個作ることができます。
