@@ -38,6 +38,7 @@ table{
 #cart{
     padding-top:50px;
 }
+
 </style>
 <script>
 import { mapState } from 'vuex'
