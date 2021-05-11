@@ -11,17 +11,26 @@
   </div>
 </template>
 
-<style scoped>
+
+
+<style>
 #picture{
-    width: 150px;
-    height: 200px;
+  width: 100px;
+  height: 150px;
 }
-li{
-  padding-top: 100px;
-  margin: 3px auto;
+#block{
+    word-break: break-all;
+    width: 33%;
+    display: inline-block;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: start;
+    margin-top: 0%;
+    padding-top: 0%;
+    vertical-align: top;
+
 }
 </style>
-
 <script>
 // @ is an alias to /src
 import {mapState} from "vuex"
