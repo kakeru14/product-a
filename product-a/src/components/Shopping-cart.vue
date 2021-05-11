@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div>
+  <div id="cart">
       <h2>ショッピングカート</h2>
       <table border=1 v-show="this.shopcart.length">
           <tr>
@@ -34,6 +34,9 @@ table{
 #picture{
     width: 150px;
     height: 200px;
+}
+#cart{
+    padding-top:50px;
 }
 </style>
 <script>
