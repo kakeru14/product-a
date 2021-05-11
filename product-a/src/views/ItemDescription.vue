@@ -1,58 +1,62 @@
 <template>
+<div class="itemdescription">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
-  <div class="itemdescription">
-     <ul>
-         <li v-for="(item,index) in items" :key="index">
-             <p>{{item.index.name}}</p>
+  <h2>{{target.name}}</h2>
+  <p><img id="pic" :src="'../'+target.imagePath"></p>
+  <p>{{target.description}}</p>
+  <p>1個：{{target.price}}円</p>
+  <p id="red">数量を選択してください</p>
+  <select v-model.number="selected">
+<option value="1">   1   </option>
+<option value="2">   2   </option>
+<option value="3">   3   </option>
+<option value="4">   4   </option>
+<option value="5">   5   </option>
+<option value="6">   6   </option>
+<option value="7">   7   </option>
+<option value="8">   8   </option>
+<option value="9">   9   </option>
+<option value="10">   10   </option>
+</select><br>
 
-         </li>
-     </ul>
-     
-      <!-- <img :src="items.imagePath">
-      
-          <h2>商品詳細</h2>
-          <h3>{{items.name}}</h3>
-          
-          <h4>items.description</h4>
-       -->
+<h2>小計：{{target.price*selected}}円（税抜）</h2>
 
-  数量:<br>
-  数量を選択してください<br>
-  <form action="//www-creators.com/rsc/receiver.php" method="post">
-  <select name ="pull-down"><br>
-      <option value=1>1</option>
-      <option value=2>2</option>
-      <option value=3>3</option>
-      <option value=4>4</option>
-      <option value=5>5</option>
-      <option value=6>6</option>
-      <option value=7>7</option>
-      <option value=8>8</option>
-      <option value=9>9</option>
-      <option value=10>10</option>
-      <option value=11>11</option>
-      <option value=12>12</option>
-  </select>
-  </form><br>
-    この商品金額： items.price*option.value :<br>
-    円（税抜）<br>
-    <button @click="inCart">カートへ入れる</button>
-  </div>
-
+<button :disabled="!selected" type="submit" @click="inCart({id:target.id,ko:selected})">カートに入れる</button>
+</div>
 </template>
 <style scoped>
-
+.itemdescription{
+  text-align: center;
+  display: inline-block;
+  width: 60%;
+  margin: 0 auto;
+  padding-left:20% ;
+}
+#red{
+  color: red;
+}
+#pic{
+  text-align: center;
+  width: 500px;
+  height: 500px;
+}
 </style>
 <script>
 // @ is an alias to /src
-import {mapState} from "vuex"
+import {mapActions, mapState} from "vuex"
 //import List from '@/views/Itemlist.vue'
 
 export default {
-  name: 'ItemDescription',
+  // name: 'ItemDescription',
   data(){
     return{
       target:{},
+      selected:''
     }
   },
   created(){
@@ -63,9 +67,7 @@ export default {
   components: {
     },
     methods:{
-       inCart(item){
-            item.status=1
-        }
+      ...mapActions(["inCart"])
     },
      computed:{
        ...mapState(["items"])
