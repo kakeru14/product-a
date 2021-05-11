@@ -34,7 +34,7 @@ const routes = [
     component: Itemlist,
   },
   {
-    path: "/itemdescription",
+    path: "/itemdescription/:list_id?",
     name: "ItemDescription",
     component: ItemDescription,
   },

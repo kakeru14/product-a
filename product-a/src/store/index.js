@@ -254,6 +254,9 @@ export default new Vuex.Store({
     ],
     login_user: null,
   },
+  getters:{
+    getItemById:state => id => state.items.find((item)=>item.id ===id)
+  },
   mutations: {
     setLoginUser(state, user) {
       state.login_user = user;
@@ -276,6 +279,7 @@ export default new Vuex.Store({
     deleteLoginUser({ commit }) {
       commit("deleteLoginUser");
     },
+    
   },
   modules: {},
 });
