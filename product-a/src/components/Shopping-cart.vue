@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div>
+  <div id="cart">
       <h2>ショッピングカート</h2>
       <table border=1 v-show="this.shopcart.length">
           <tr>
@@ -10,7 +10,7 @@
               <th>/</th>
           </tr>
           <tr v-for="(item,index) in shopcart" :key="`first-${index}`">
-              <td><img :src="item.imagePath"></td>
+              <td><img id="picture" :src="item.imagePath"></td>
               <td>{{item.name}}</td>
               <td>{{item.price}}円</td>
               <td><button @click="removeCart(item,index)">カートから削除</button></td>
