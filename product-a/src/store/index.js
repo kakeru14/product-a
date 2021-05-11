@@ -9,11 +9,7 @@ export default new Vuex.Store({
     items: [
       {
         id: 1,
-<<<<<<< HEAD
-        imagePath: "../../src/assets/1.jpg",
-=======
         imagePath: "1.jpg",
->>>>>>> 6d9f13a69c6368f480dad41f2bc852ca132e872e
         name: "ビニールプール",
         price: 1490,
         description: `製品サイズ:(約)幅157×奥行157×高さ122cm
