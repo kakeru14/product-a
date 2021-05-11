@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>|
       <router-link to="/OrderConfirm">注文確認画面</router-link>
+      <router-link to="/itemlist">アイテムリスト</router-link>
     </div>
     <router-view/>
   </div>
