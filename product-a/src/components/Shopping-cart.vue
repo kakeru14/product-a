@@ -10,7 +10,7 @@
               <th>/</th>
           </tr>
           <tr v-for="(item,index) in shopcart" :key="`first-${index}`">
-              <td><img :src="item.imagePath"></td>
+              <td><img id="picture" :src="item.imagePath"></td>
               <td>{{item.name}}</td>
               <td>{{item.price}}円</td>
               <td><button @click="removeCart(item,index)">カートから削除</button></td>
@@ -30,6 +30,10 @@
 <style scoped>
 table{
     margin: 3px auto;
+}
+#picture{
+    width: 150px;
+    height: 200px;
 }
 </style>
 <script>
