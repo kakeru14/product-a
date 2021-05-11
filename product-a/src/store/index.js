@@ -276,6 +276,17 @@ export default new Vuex.Store({
     deleteLoginUser({ commit }) {
       commit("deleteLoginUser");
     },
+    fetchAddresses({ getters, commit }) {
+      firebase
+        .firestore()
+        .collection(`users/${getters.uid}/addresses`)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) =>
+            commit("addAddress", { id: doc.id, address: doc.data() })
+          );
+        });
+    },
   },
   modules: {},
 });
