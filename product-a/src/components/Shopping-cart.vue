@@ -23,7 +23,7 @@
       <h2 v-show="cartTotalPrice()">消費税 : {{Math.round(cartTotalPrice()*0.1)}}円</h2>
       <h2 v-show="cartTotalPrice()">ご注文金額合計 : {{Math.round(cartTotalPrice()*1.1)}}円（税込）</h2>
       
-      <p v-show="!this.shopcart.length">カートに商品がありません</p>
+      <p id="no" v-show="!this.shopcart.length">カートに商品がありません</p>
 
       <p id="button"><button v-show="this.shopcart.length" @click="$router.push({name:'注文確認画面'})">注文に進む</button></p>
 
@@ -46,6 +46,9 @@ h2{
     text-align: center;
 }
 #button{
+    text-align: center;
+}
+#no{
     text-align: center;
 }
 
