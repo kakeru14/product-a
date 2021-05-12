@@ -253,6 +253,7 @@ export default new Vuex.Store({
       },
     ],
     login_user: null,
+    selectedItems: [],
   },
   mutations: {
     setLoginUser(state, user) {
@@ -260,6 +261,20 @@ export default new Vuex.Store({
     },
     deleteLoginUser(state) {
       state.login_user = null;
+    },
+    search(state) {
+      this.state.selectedItems = [];
+      // let searchName = searchItems.target.value;
+      for (let i in state.data) {
+        let item = state.data[i];
+        if (item.name.indexOf(state) !== -1) {
+          state.selectedItems.push(item);
+        }
+      }
+      // console.log(searchName);
+      // if (state.selectedItems.length === 0) {
+      //   alert("該当する商品がありません");
+      // }
     },
   },
   actions: {
@@ -276,17 +291,20 @@ export default new Vuex.Store({
     deleteLoginUser({ commit }) {
       commit("deleteLoginUser");
     },
-    fetchAddresses({ getters, commit }) {
-      firebase
-        .firestore()
-        .collection(`users/${getters.uid}/addresses`)
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach((doc) =>
-            commit("addAddress", { id: doc.id, address: doc.data() })
-          );
-        });
+    search({ commit }, searchItems) {
+      commit("search", searchItems);
+      console.log(searchItems);
     },
   },
-  modules: {},
+  fetchAddresses({ getters, commit }) {
+    firebase
+      .firestore()
+      .collection(`users/${getters.uid}/addresses`)
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) =>
+          commit("addAddress", { id: doc.id, address: doc.data() })
+        );
+      });
+  },
 });

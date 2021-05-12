@@ -2,7 +2,7 @@
   <div class="itemdescription">
      <ul>
          <li v-for="(item,index) in items" :key="index">
-             <p>{{item.index.name}}</p>
+             <!-- <p>{{item.index.name}}</p> -->
 
          </li>
      </ul>

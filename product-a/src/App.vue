@@ -10,7 +10,8 @@
 <router-link to="/itemlist">アイテムリスト</router-link>
 <button @click="login">ログイン</button>
 <!-- <router-link to="/Home" class="router-item">ログイン</router-link> -->
-<router-link to="/Home" class="router-item">ログアウト</router-link>
+<button @click="logout">ログアウト</button>
+<!-- <router-link to="/Home" class="router-item">ログアウト</router-link> -->
 </div>
 </header>
 <router-view/>
@@ -22,7 +23,7 @@ import {mapActions} from "vuex"
 export default {
   name: 'App',
   methods:{
-      ...mapActions(["login"])
+      ...mapActions(["login","logout"])
     }
 }
 </script>
