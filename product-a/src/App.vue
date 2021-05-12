@@ -8,10 +8,11 @@
 <router-link to="/cart" class="router-item">ショッピングカート</router-link>
 <router-link to="/OrderConfirm" class="router-item">注文履歴</router-link>
 <router-link to="/itemlist">アイテムリスト</router-link>
-<button @click="login">ログイン</button>
+<button v-show="!$store.state.login_user" @click="login">ログイン</button>
 <!-- <router-link to="/Home" class="router-item">ログイン</router-link> -->
-<button @click="logout">ログアウト</button>
+<button v-show="$store.state.login_user" @click="logout">ログアウト</button>
 <!-- <router-link to="/Home" class="router-item">ログアウト</router-link> -->
+<span v-show="$store.state.login_user">{{ userName }}</span>
 </div>
 </header>
 <router-view/>
@@ -30,8 +31,12 @@ export default {
       firebase.auth().onAuthStateChanged(user=>{
         if(user){
           this.setLoginUser(user)
+          if(this.$router.currentRoute.name ==="Home"){
+            this.$router.push({name:"Itemlist"});
+          }
         }else{
           this.deleteLoginUser()
+          this.$router.push({name:"Home"});
         }
       })
       

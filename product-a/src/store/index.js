@@ -275,6 +275,7 @@ export default new Vuex.Store({
   },
   getters: {
     getItemById: (state) => (id) => state.items.find((item) => item.id === id),
+    userName: (state) => (state.login_user ? state.login_user.displayName : ""),
   },
   mutations: {
     setLoginUser(state, user) {
