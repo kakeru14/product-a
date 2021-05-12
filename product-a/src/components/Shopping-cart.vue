@@ -25,7 +25,7 @@
       
       <p v-show="!this.shopcart.length">カートに商品がありません</p>
 
-      <p id="button"><button v-show="this.shopcart.length" @click="$router.push({name:'注文確認画面'})">注文に進む</button></p>
+      <p id="button"><button v-show="this.shopcart.length"><router-link to="/OrderConfirm">注文に進む</router-link></button></p>
 
       <!-- <p><button :disabled="!cartProducts.length" @click="checkout(cartProducts)">Checkout</button></p> -->
   </div>
