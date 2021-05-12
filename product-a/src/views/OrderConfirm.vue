@@ -51,7 +51,7 @@
 
     <!-- <br><ShoppingCart/> -->
   <br><OrderForm/>
-   <br><button><router-link to="/sendorder">注文内容を送信する</router-link></button>
+   <!-- <br><button><router-link to="/sendorder">注文内容を送信する</router-link></button> -->
    <router-view/>
 </div>
 </template>
