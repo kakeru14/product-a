@@ -1,66 +1,74 @@
 <template>
-<div>
-  <div class="itemlist" id="block">
-      <!-- <table border=1>
-        <tr id="block" v-for="(item,index) in items" :key=index>
-        <img id="picture" :src="item.imagePath" @click="$router.push({name:'ItemDescription'})">
-          <p @click="$router.push({name:'ItemDescription'})">{{item.name}}</p>
-          {{item.price}}円(税抜)
-        </tr>
-        </table> -->
 
-    <div class="item" v-for="(item,index) in items" :key=index>
-        <img id="picture" :src="item.imagePath" @click="$router.push({name:'ItemDescription'})">
-          <p id="itemName" @click="$router.push({name:'ItemDescription'})">{{item.name}}</p>
-          {{item.price}}円(税抜)
-    </div>
-    </div>
-    <div>
-      商品名
-      <form action="" @submit.prevent="search">
-      <input type="text" v-model="keyword">
-      <br>
-      <button type="submit">検索</button>
-      <button @click="del">クリア</button>
-      </form>
-      </div>
-</div>
+  <div class="itemlist">
+
+    
+    <input type="text" placeholder="商品を検索する" v-model="value">
+    <button type="button" @click="search">検索</button>
+    <button type="button" @click="reset">クリア</button>
+
+    <ul>
+      <li class="block" v-for="(res,index) in result" :key="index">
+        <p class="pic"><img class="picture" :src="res.imagePath" @click="$router.push({name:'ItemDescription',params:{list_id:res.id}})"></p>
+        <p @click="$router.push({name:'ItemDescription',params:{list_id:res.id}})">{{res.name}}</p> 
+        <p>{{res.price}}円</p> 
+      </li>
+    </ul>
+
+    <ul>
+        <li class="block" v-for="(item,index) in items" :key="index">
+        <p class="pic"><img class="picture" :src="item.imagePath" @click="$router.push({name:'ItemDescription',params:{list_id:item.id}})"></p>
+        <p @click="$router.push({name:'ItemDescription',params:{list_id:item.id}})">{{item.name}}</p> 
+        <p>{{item.price}}円</p> 
+        </li>
+    </ul>
+  </div>
+
 </template>
 
+
+
 <style>
-#picture{
+.pic{
+  text-align: center;
+}
+.picture{
   width: 100px;
   height: 150px;
 }
-#block{
-width: 60%;
-display: flex;
-justify-content:center;
-flex-wrap: wrap;
-margin-left: auto;
-margin-right: auto;
-background-color: #CCFFFF;
 
+.block{
+    word-break: break-all;
+    width: 30%;
+    display: inline-block;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: start;
+    margin-top: 0%;
+    padding-top: 0%;
+    vertical-align: top;
+    border-style: ridge;
+    height: 300px;
 }
-
-.item{
-  width: 30%;
-  text-align: center;
-  border-top: solid 3px white ;
-  padding: 10px;
-  
-}
-#itemName{
-text-decoration: underline;
+.itemlist{
+  padding-top: 100px;
 }
 </style>
 <script>
 // @ is an alias to /src
-import {mapActions, mapState} from "vuex"
 
+import {mapState} from "vuex"
+//import Desc from '@/views/ItemDescription.vue'
 
 export default {
   name: 'Itemlist',
+  data(){
+    return{
+      value:'',
+      result:[]
+    }
+  },
+  
   components: {
 
   },
@@ -79,8 +87,20 @@ export default {
   computed:{
         ...mapState(["items"])
     },
-       
+  methods:{
+    search(){
+      this.result=[]
+      this.items.forEach(e=>{
+                if(e.name.indexOf(this.value)!==-1){
+                    this.result.push(e)
+                }
+            })
+    },
+    reset(){
+      this.value=''
+    }
   }  
-  
+  }  
+
 
 </script>
