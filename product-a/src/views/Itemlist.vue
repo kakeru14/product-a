@@ -72,18 +72,8 @@ export default {
   components: {
 
   },
-  data(){
-    return{
-    keyword:""
-    }
-  },
-  methods:{
-    ...mapActions(["search"]),
   
-    del(){
-      this.keyword=""
-    }
-  },
+    
   computed:{
         ...mapState(["items"])
     },
