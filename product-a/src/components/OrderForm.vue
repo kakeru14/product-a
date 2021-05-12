@@ -7,94 +7,201 @@
 						<tbody>
 							<tr>
 								<td>お名前</td>
-								<td><input type="text"></td>
+								<td><input type="text" v-model="item.destinationName"></td>
+                <td></td>
+                <td><span class="red">{{messages.destinationName}}</span></td>
 							</tr>
 							<tr>
 								<td><div>メールアドレス</div></td>
-								<td><input type="text"></td>
+								<td><input type="text" v-model.trim="item.destinationMail"></td>
+                <td></td>
+                <td><span class="red">{{messages.destinationMail}}</span></td>
 							</tr>
 							<tr>
 								<td><div>郵便番号</div></td>
-								<td><input type="text"></td>
-                <td><button>住所検索</button></td>
+								<td><input type="text" v-model="item.destinationZipcode"></td>
+                <td><button @click="yubinbango()">住所検索</button></td>
+                <td><span class="red">{{messages.destinationZipcode}}</span></td>
 							</tr>
 							<tr>
 								<td><div>住所</div></td>
-								<td><input type="text"></td>
+								<td><input type="text" v-model="item.destinationAddress"></td>
+                <td></td>
+                <td><span class="red">{{messages.destinationAddress}}</span></td>
 							</tr>
 							<tr>
 								<td><div>電話番号</div></td>
-								<td><input type="text"></td>
+								<td><input type="text" v-model.trim="item.destinationTel"></td>
+                <td></td>
+                <td><span class="red">{{messages.destinationTel}}</span></td>
 							</tr>
 							<tr>
-								<td><div>配達日時</div></td>
+								<td valign="top"><div>配達日時</div></td>
 								<td>
-                  <div>
+                  <!-- <div>
                     <label style="color: red" for="inputPeriod">配達日時を入力してください</label>
-                  </div>
+                  </div> -->
                   <div>
-                    <input type="date" name="name" id="name" />
+                    <input type="date" v-model="item.date"/>
                   </div>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">10時
-                      </label>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">11時
-                      </label>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">12時
-                      </label><br>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">13時
-                      </label>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">14時
-                      </label>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">15時
-                      </label><br>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">16時
-                      </label>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">17時
-                      </label>
-                      <label>
-                        <input type="radio" name="responsibleCompany" checked="checked">18時
-                      </label>                        
+                    <label>
+                      <input type="radio" value="10:00:00" v-model="item.time">10時
+                    </label>
+                    <label>
+                      <input type="radio" value="11:00:00" v-model="item.time">11時
+                    </label>
+                    <label>
+                      <input type="radio" value="12:00:00" v-model="item.time">12時
+                    </label><br>
+                    <label>
+                      <input type="radio" value="13:00:00" v-model="item.time">13時
+                    </label>
+                    <label>
+                      <input type="radio" value="14:00:00" v-model="item.time">14時
+                    </label>
+                    <label>
+                      <input type="radio" value="15:00:00" v-model="item.time">15時
+                    </label><br>
+                    <label>
+                      <input type="radio" value="16:00:00" v-model="item.time">16時
+                    </label>
+                    <label>
+                      <input type="radio" value="17:00:00" v-model="item.time">17時
+                    </label>
+                    <label>
+                      <input type="radio" value="18:00:00" v-model="item.time">18時
+                    </label>                        
 								</td>
+                <td></td>
+                <td><span class="red">{{messages.destinationTime}}</span></td>
 							</tr>
 						</tbody>
 					</table>
 
 			<h3>お支払い方法</h3>
         <label>
-          <input type="radio" name="responsibleCompany">代金引換
+          <input type="radio" name="daibiki" value="0" v-model="item.paymentMethod" >代金引換
         </label>
         <label>
-          <input type="radio" name="responsibleCompany">クレジットカード
+          <input type="radio" name="cledit" value="1" v-model="item.paymentMethod">クレジットカード
         </label>
+        <span class="red">{{messages.paymentMethod}}</span>
         <div>
-          <input type="submit" value="この内容で注文する" class="submit">
+          <button @click="destinationTime(),check()" type="submit" class="submit">この内容で注文する</button>
         </div>
 		</form>
+    <!-- {{item.destinationName}}
+    {{item.destinationMail}}
+    {{item.destinationZipcode}} -->
+    <!-- {{item.destinationAddress}} -->
+    <!-- {{item.destinationTel}}
+    {{item.destinationTime}}  -->
+    <!-- {{item.date}}
+    {{item.time}} -->
+    <!-- {{item.paymentMethod}}
+    <br>
+    {{now | moment}}
+    {{item}} -->
+    <!-- {{compareTime}} -->
+    <!-- <button @click="conpareTime">時間比べ</button> -->
 	</div>
 </template>
 
 <script>
+import moment from "moment";
+import { Core as YubinBangoCore } from 'yubinbango-core';
 export default {
-  
+  data(){
+    return {
+      messages:{
+        destinationName: '',
+        destinationMail: '',
+        destinationZipcode:'',
+        destinationAddress:'',
+        destinationTel:'',
+        destinationTime:'',
+        paymentMethod:'',
+      },
+      item:{ },
+      // now: moment(new Date).format('YYYY/MM/DD HH:mm:ss')
+    }
+  },
+  computed:{
+    now(){
+      return Date.now()
+    },
+  },
+  methods:{
+    yubinbango() {
+        // this.item.destinationAddress = ''
+        new YubinBangoCore(this.item.destinationZipcode, (addr)=> {
+        this.item.destinationAddress = addr.region // 都道府県
+        this.item.destinationAddress += addr.locality // 市区町村
+        this.item.destinationAddress += addr.street // 町域
+        // console.log(this.item.destinationAddress)
+      })
+    },
+    destinationTime(){
+      this.item.destinationTime = `${this.item.date} ${this.item.time}`;
+      return this.item.destinationTime
+    },
+    check(){
+      if(!this.item.destinationName){
+        this.messages.destinationName = '名前を入力して下さい'
+      }
+      if(!this.item.destinationMail){
+        this.messages.destinationMail = 'メールアドレスを入力して下さい'
+      } else if(this.item.destinationMail.indexOf('@') == -1){
+        this.messages.destinationMail = 'メールアドレスの形式が不正です'
+      }
+      if(!this.item.destinationZipcode){
+        this.messages.destinationZipcode = '郵便番号を入力して下さい'
+      } else if(this.item.destinationZipcode.match(/^\d{3}-?\d{4}$/)) {
+        this.messages.destinationZipcode = ''
+      } else {
+        this.messages.destinationZipcode = '郵便番号はXXX-XXXXの形式で入力してください'
+      }
+      if(!this.item.destinationAddress){
+        this.messages.destinationAddress = '住所を入力して下さい'
+      }
+      if(!this.item.destinationTel){
+        this.messages.destinationTel = '電話番号を入力して下さい'
+      }else if(this.item.destinationTel.match(/^0\d{1,4}-\d{1,4}-\d{3,4}$/)){
+        this.messages.destinationTel = ''
+      }else{
+        this.messages.destinationTel = '電話番号はXXXX-XXXX-XXXXの形式で入力してください'
+      }
+      if(!(this.item.date || this.item.time)){
+        this.messages.destinationTime = '配達日時を入力して下さい'
+      }
+      let now = moment();
+      if(now.diff(this.item.destinationTime,'hours') >= 3){
+        this.messages.destinationTime = '今から3時間後の日時をご入力ください'
+      }
+      if(!this.item.paymentMethod){
+        this.messages.paymentMethod = '決済方法を選択して下さい'
+      }
+    },
+  },
+    filters: {
+      moment(date) {
+      return moment(date).format('YYYY-MM-DD HH:mm:ss');
+    }
+  }
 }
 </script>
 
-
-
 <style lang="css">
 .center{
+  margin-top: 100px;
   display: inline-block;
+  text-align: center;
 }
 .submit{
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.red{
+  color: red;
 }
 </style>
