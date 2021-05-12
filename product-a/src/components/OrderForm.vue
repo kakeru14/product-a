@@ -87,7 +87,7 @@
         </label>
         <span class="red">{{messages.paymentMethod}}</span>
         <div>
-          <button @click="destinationTime(),check()" type="submit" class="submit">この内容で注文する</button>
+          <button @click="destinationTime(),check()" type="submit" class="submit"><router-link to="/sendorder">注文内容を送信する</router-link></button>
         </div>
 		</form>
     <!-- {{item.destinationName}}
