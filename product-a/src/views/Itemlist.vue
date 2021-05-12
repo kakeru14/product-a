@@ -16,7 +16,7 @@
     </ul>
 
     <ul>
-        <li class="block" v-for="(item,index) in items" :key="index">
+        <li class="block" v-for="(item,index) in search" :key="index">
         <p class="pic"><img class="picture" :src="item.imagePath" @click="$router.push({name:'ItemDescription',params:{list_id:item.id}})"></p>
         <p @click="$router.push({name:'ItemDescription',params:{list_id:item.id}})">{{item.name}}</p> 
         <p>{{item.price}}円</p> 
@@ -72,23 +72,31 @@ export default {
   components: {
 
   },
-  
-    
-  computed:{
-        ...mapState(["items"])
-    },
   methods:{
-    search(){
-      this.result=[]
-      this.items.forEach(e=>{
-                if(e.name.indexOf(this.value)!==-1){
-                    this.result.push(e)
-                }
-            })
-    },
+    // search(){
+    //   const searchitem = []
+    //   this.items.forEach(e=>{
+    //             if(e.name.indexOf(this.value)!==-1){
+    //                 searchitem.push(e)
+    //             }
+    //         })
+    //         return searchitem
+    // },
     reset(){
       this.value=''
     }
+  },
+  computed:{
+    search(){
+      const searchitem = []
+      this.items.forEach(e=>{
+                if(e.name.indexOf(this.value)!==-1){
+                    searchitem.push(e)
+                }
+            })
+            return searchitem
+    },
+     ...mapState(["items"])
   }  
   }  
 
