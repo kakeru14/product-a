@@ -28,6 +28,7 @@ export default new Vuex.Store({
         及び譲渡によって発生した故障・破損・損害・事故などにつきましては
         一切責任を負いかねますので予めご了承ください。`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 2,
@@ -42,6 +43,7 @@ export default new Vuex.Store({
         アウトドアでもガンガン走るラジコンバギー。
         <本体サイズ>H11.5×W16×D27.5cm`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 3,
@@ -53,6 +55,7 @@ export default new Vuex.Store({
         ３階のお部屋「えんとつのお部屋」と「屋根ユニット」が取り外せるようになっています。
         これらのお部屋を組みかえることで、３階建てのお家としても遊ぶことができます。`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 4,
@@ -72,6 +75,7 @@ export default new Vuex.Store({
         使用電池:単4×4 (別売) 
        【商品内容】キュアライン本体1個、タッチペン1個`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 5,
@@ -81,6 +85,7 @@ export default new Vuex.Store({
         description: `過去大ヒットした『キキ＆ララ月のおうち』の復刻版です。
         家具や色味など、現代バージョンにアレンジし、パワーアップして登場です。`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 6,
@@ -97,6 +102,7 @@ export default new Vuex.Store({
         
          ※デビューキャンペーンの先着購入特典、アニマルスイーツ「ペコリンムースケーキ」は付属しません。`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 7,
@@ -116,6 +122,7 @@ export default new Vuex.Store({
         ハウス各所にある星型の突起に乗せやすい作りになっています。
         アンパンマンの世界観を表現した本商品で、楽しくドール遊びをしちゃおう！`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 8,
@@ -131,6 +138,7 @@ export default new Vuex.Store({
         職業カード(A4サイズ)(1), お宝カード(A4サイズ)(1),保険証券(火災保険、生命保険、自動車保険)(24),
         株券(8),お札一式(1)`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 9,
@@ -144,6 +152,7 @@ export default new Vuex.Store({
          グローブポケット4、バッターウィンドウ1、ボール6、バッター人形2、ピッチャー人形1、ランナー人形3、 
          フィールダー人形7、カウントピン3、シール1、バット用ゴム3、取扱説明書1`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 10,
@@ -156,6 +165,7 @@ export default new Vuex.Store({
         ＜セット内容＞
          レイヤー(1),ディスク(1),ドライバー(1),ランチャー(1),ワインダー(1),取説(1),シール(1)`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 11,
@@ -167,6 +177,7 @@ export default new Vuex.Store({
         キーを入力して攻撃！ 別売りのライダーガシャットをセットして必殺技発動！ 
         ＜セット内容＞本体×1`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 12,
@@ -180,6 +191,7 @@ export default new Vuex.Store({
         ★ホープドライブヘッド2号(1),ラベル(1),取扱説明書(1) ※「★」マークは新規金型 
         ＜主な材質＞ABS`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 13,
@@ -194,6 +206,7 @@ export default new Vuex.Store({
         ＜主な材質＞
         PS`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 14,
@@ -204,6 +217,7 @@ export default new Vuex.Store({
         『くまモン』が搭乗！ 彼の選んだミニ四駆は、アスチュートオープントップ（スーパーIIシャーシ、モーター付き）でした！
         ※くまモン人形は組み立て塗装済みです。くまもとサプライズ・くまモンは熊本県の登録商標です。`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 15,
@@ -212,6 +226,7 @@ export default new Vuex.Store({
         price: 2440,
         description: `待望のMG ダブルゼータガンダム Ver.Kaが遂に登場!! 各部の広い可動域とコア・ブロック・システムの搭載、各形態への変形を実現!`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 16,
@@ -225,6 +240,7 @@ export default new Vuex.Store({
         4.屋根の一番上についているお花のクルクルゴーランドは、エレベーターの上下と連動して大きく回転します。 
         5.その他、クルクル回るリスの切り株、ブランコ、屋上のくぼみなど、子どもの想像力で遊べるポイントが増えました。`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 17,
@@ -241,6 +257,7 @@ export default new Vuex.Store({
           ドームメーカー、水ボトル、ドーム×8、人形×8、ベースプレート×8、ラメタブレット×10、デコチャーム×24、
           指輪×2、ネックレス×2、ブレスレット×2、ディスプレー(ティーカップ、ティーポット)、取扱説明書`,
         status: 0,
+        quantity: 0,
       },
       {
         id: 18,
@@ -250,9 +267,14 @@ export default new Vuex.Store({
         description: `ゆめかわ系のおはじきシールが150個作ることができます。
         カードやお手紙などに貼ったりお友達と交換することで遊びが広がります。`,
         status: 0,
+        quantity: 0,
       },
     ],
     login_user: null,
+    selectedItems: [],
+  },
+  getters: {
+    getItemById: (state) => (id) => state.items.find((item) => item.id === id),
   },
   mutations: {
     setLoginUser(state, user) {
@@ -260,6 +282,29 @@ export default new Vuex.Store({
     },
     deleteLoginUser(state) {
       state.login_user = null;
+    },
+
+    inCart(state, { id, ko }) {
+      console.log(id);
+      //console.log(selected)
+      state.items.forEach((el) => {
+        //  console.log(el.id)
+        if (el.id == id) {
+          el.status = 1;
+          el.quantity = el.quantity + ko;
+        }
+        //console.log(el.status)
+      });
+      //found.status = 1
+    },
+    removeCart(state, item) {
+      console.log(item);
+      state.items.forEach((el) => {
+        if (el.id == item.id) {
+          el.status = 0;
+          el.quantity = 0;
+        }
+      });
     },
   },
   actions: {
@@ -276,17 +321,26 @@ export default new Vuex.Store({
     deleteLoginUser({ commit }) {
       commit("deleteLoginUser");
     },
-    fetchAddresses({ getters, commit }) {
-      firebase
-        .firestore()
-        .collection(`users/${getters.uid}/addresses`)
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach((doc) =>
-            commit("addAddress", { id: doc.id, address: doc.data() })
-          );
-        });
+
+    inCart({ commit }, { id, ko }) {
+      commit("inCart", { id, ko });
+      console.log(id);
+      console.log(ko);
+    },
+    removeCart({ commit }, item) {
+      console.log(item);
+      commit("removeCart", item);
     },
   },
-  modules: {},
+  fetchAddresses({ getters, commit }) {
+    firebase
+      .firestore()
+      .collection(`users/${getters.uid}/addresses`)
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) =>
+          commit("addAddress", { id: doc.id, address: doc.data() })
+        );
+      });
+  },
 });
