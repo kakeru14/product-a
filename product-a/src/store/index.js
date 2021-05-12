@@ -333,15 +333,13 @@ export default new Vuex.Store({
       commit("removeCart", item);
     },
   },
-  fetchAddresses({ getters, commit }) {
+  fetchCart({ getters, commit }) {
     firebase
       .firestore()
-      .collection(`users/${getters.uid}/addresses`)
+      .collection(`users/${getters.uid}/cart`)
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) =>
-          commit("addAddress", { id: doc.id, address: doc.data() })
-        );
+        snapshot.forEach((doc) => commit("inCart", { id: doc.id, ko: doc.ko }));
       });
   },
 });

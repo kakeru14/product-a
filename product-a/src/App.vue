@@ -25,12 +25,13 @@ import firebase from "firebase"
 export default {
   name: 'App',
   methods:{
-      ...mapActions(["login","logout","setLoginUser","deleteLoginUser"])
+      ...mapActions(["login","logout","setLoginUser","deleteLoginUser","fetchCart"])
     },
     created(){
       firebase.auth().onAuthStateChanged(user=>{
         if(user){
           this.setLoginUser(user)
+          this.fetchCart();
           if(this.$router.currentRoute.name ==="Home"){
             this.$router.push({name:"Itemlist"});
           }
