@@ -19,11 +19,25 @@
 </template>
 
 <script>
-import {mapActions} from "vuex"
+import {mapActions,mapGetters} from "vuex"
+import firebase from "firebase"
 export default {
   name: 'App',
   methods:{
-      ...mapActions(["login","logout"])
+      ...mapActions(["login","logout","setLoginUser","deleteLoginUser"])
+    },
+    created(){
+      firebase.auth().onAuthStateChanged(user=>{
+        if(user){
+          this.setLoginUser(user)
+        }else{
+          this.deleteLoginUser()
+        }
+      })
+      
+    },
+    computed:{
+      ...mapGetters(["userName"])
     }
 }
 </script>
