@@ -80,14 +80,14 @@
 
 			<h3>お支払い方法</h3>
         <label>
-          <input type="radio" name="daibiki" value="0" v-model="item.paymentMethod" >代金引換
+          <input type="radio" name="daibiki" value="0" v-model="messages.pay" >代金引換
         </label>
         <label>
-          <input type="radio" name="cledit" value="1" v-model="item.paymentMethod">クレジットカード
+          <input type="radio" name="cledit" value="1" v-model="messages.pay">クレジットカード
         </label>
         <span class="red">{{messages.paymentMethod}}</span>
         <div>
-          <button @click="destinationTime(),check()" type="submit" class="submit"><router-link to="/sendorder">注文内容を送信する</router-link></button>
+          <button @click="addRireki({cart:cart,pay:messages.pay})" type="submit" class="submit"><router-link to="/sendorder">注文内容を送信する</router-link></button>
         </div>
 		</form>
     <!-- {{item.destinationName}}
@@ -108,9 +108,13 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import moment from "moment";
 import { Core as YubinBangoCore } from 'yubinbango-core';
 export default {
+  props:{
+    cart:{type:Array}
+  },
   data(){
     return {
       messages:{
@@ -121,15 +125,34 @@ export default {
         destinationTel:'',
         destinationTime:'',
         paymentMethod:'',
+        time:'',
+        date:'',
+        pay:''
       },
-      item:{ },
+      item:{
+        destinationName: '',
+        destinationMail: '',
+        destinationZipcode:'',
+        destinationAddress:'',
+        destinationTel:'',
+        destinationTime:'',
+        paymentMethod:'',
+        time:'',
+        date:'',
+        pay:''
+      },
       // now: moment(new Date).format('YYYY/MM/DD HH:mm:ss')
+      //cart:[],
     }
   },
   computed:{
     now(){
       return Date.now()
     },
+    ...mapState(["items"])
+  },
+  created(){
+  //      this.cartItem();
   },
   methods:{
     yubinbango() {
@@ -145,49 +168,61 @@ export default {
       this.item.destinationTime = `${this.item.date} ${this.item.time}`;
       return this.item.destinationTime
     },
-    check(){
-      if(!this.item.destinationName){
-        this.messages.destinationName = '名前を入力して下さい'
-      }
-      if(!this.item.destinationMail){
-        this.messages.destinationMail = 'メールアドレスを入力して下さい'
-      } else if(this.item.destinationMail.indexOf('@') == -1){
-        this.messages.destinationMail = 'メールアドレスの形式が不正です'
-      }
-      if(!this.item.destinationZipcode){
-        this.messages.destinationZipcode = '郵便番号を入力して下さい'
-      } else if(this.item.destinationZipcode.match(/^\d{3}-?\d{4}$/)) {
-        this.messages.destinationZipcode = ''
-      } else {
-        this.messages.destinationZipcode = '郵便番号はXXX-XXXXの形式で入力してください'
-      }
-      if(!this.item.destinationAddress){
-        this.messages.destinationAddress = '住所を入力して下さい'
-      }
-      if(!this.item.destinationTel){
-        this.messages.destinationTel = '電話番号を入力して下さい'
-      }else if(this.item.destinationTel.match(/^0\d{1,4}-\d{1,4}-\d{3,4}$/)){
-        this.messages.destinationTel = ''
-      }else{
-        this.messages.destinationTel = '電話番号はXXXX-XXXX-XXXXの形式で入力してください'
-      }
-      if(!(this.item.date || this.item.time)){
-        this.messages.destinationTime = '配達日時を入力して下さい'
-      }
-      let now = moment();
-      if(now.diff(this.item.destinationTime,'hours') >= 3){
-        this.messages.destinationTime = '今から3時間後の日時をご入力ください'
-      }
-      if(!this.item.paymentMethod){
-        this.messages.paymentMethod = '決済方法を選択して下さい'
-      }
-    },
+    // check(){
+    //   if(!this.messages.destinationName){
+    //     this.messages.destinationName = '名前を入力して下さい'
+    //   }
+    //   if(!this.messages.destinationMail){
+    //     this.messages.destinationMail = 'メールアドレスを入力して下さい'
+    //   } else if(this.item.destinationMail.indexOf('@') == -1){
+    //     this.messages.destinationMail = 'メールアドレスの形式が不正です'
+    //   }
+    //   if(!this.messages.destinationZipcode){
+    //     this.messages.destinationZipcode = '郵便番号を入力して下さい'
+    //   } else if(this.messages.destinationZipcode.match(/^\d{3}-?\d{4}$/)) {
+    //     this.messages.destinationZipcode = ''
+    //   } else {
+    //     this.messages.destinationZipcode = '郵便番号はXXX-XXXXの形式で入力してください'
+    //   }
+    //   if(!this.messages.destinationAddress){
+    //     this.messages.destinationAddress = '住所を入力して下さい'
+    //   }
+    //   if(!this.messages.destinationTel){
+    //     this.messages.destinationTel = '電話番号を入力して下さい'
+    //   }else if(this.messages.destinationTel.match(/^0\d{1,4}-\d{1,4}-\d{3,4}$/)){
+    //     this.messages.destinationTel = ''
+    //   }else{
+    //     this.messages.destinationTel = '電話番号はXXXX-XXXX-XXXXの形式で入力してください'
+    //   }
+    //   if(!(this.messages.date || this.messages.time)){
+    //     this.messages.destinationTime = '配達日時を入力して下さい'
+    //   }
+    //   let now = moment();
+    //   if(now.diff(this.messages.destinationTime,'hours') >= 3){
+    //     this.messages.destinationTime = '今から3時間後の日時をご入力ください'
+    //   }
+    //   if(!this.messages.paymentMethod){
+    //     this.messages.paymentMethod = '決済方法を選択して下さい'
+    //   }
+    // },
+    // cartItem(){
+    //         this.items.forEach(el=>{
+    //             if(el.status===1){
+    //                 this.cart.push(el)
+    //             }
+    //         })
+    //     },
+    ...mapActions(["addRireki"])
+    
   },
     filters: {
       moment(date) {
       return moment(date).format('YYYY-MM-DD HH:mm:ss');
     }
-  }
+  },
+  
+  
+  
 }
 </script>
 

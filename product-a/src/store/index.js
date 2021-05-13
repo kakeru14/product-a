@@ -272,6 +272,8 @@ export default new Vuex.Store({
     ],
     login_user: null,
     selectedItems: [],
+    rirekiItem:[],
+    storecart:[]
   },
   getters: {
     getItemById: (state) => (id) => state.items.find((item) => item.id === id),
@@ -287,12 +289,11 @@ export default new Vuex.Store({
 
     inCart(state, { id, ko }) {
       console.log(id);
-      //console.log(selected)
       state.items.forEach((el) => {
-        //  console.log(el.id)
         if (el.id == id) {
-          el.status = 1;
-          el.quantity = el.quantity + ko;
+          // el.status = 1;
+          el.quantity = ko;
+          state.storecart.push(el)
         }
         //console.log(el.status)
       });
@@ -302,11 +303,35 @@ export default new Vuex.Store({
       console.log(item);
       state.items.forEach((el) => {
         if (el.id == item.id) {
-          el.status = 0;
-          el.quantity = 0;
+          //el.status = 0;
+          //el.quantity = 0;
+          this.store.storecart.splice(el,1)
         }
       });
     },
+    addRireki(state,{cart,pay}){
+      cart.forEach(el=>{
+        state.items.forEach(item=>{
+          if(el.id===item.id){
+            if(pay==0){
+              //item.status = 0
+              console.log(item.status)
+            //item.quantity = 0
+            el.status = 2
+            }else if(pay==1){
+              //item.status = 0
+            //item.quantity = 0
+            el.status = 3
+            }
+            // item.status = 0
+            // item.quantity = 0
+            
+          }
+        })
+      })
+      state.storecart=[]
+      state.rirekiItem.push(cart)
+      }
   },
   actions: {
     login() {
@@ -324,22 +349,48 @@ export default new Vuex.Store({
     },
 
     inCart({ commit }, { id, ko }) {
-      commit("inCart", { id, ko });
-      console.log(id);
-      console.log(ko);
+      //if(getters.uid){
+        // firebase
+        //  .firestore()
+        //  .collection(`users/${getters.uid}/inCart`)
+        //  .add(item)
+        //  .then(doc=>{
+          commit("inCart", { id,ko });
+          console.log(id);
+          console.log(ko);
+         //})
+      //}
     },
     removeCart({ commit }, item) {
       console.log(item);
       commit("removeCart", item);
     },
+    fetchCart({ getters, commit }) {
+      firebase
+        .firestore()
+        .collection(`users/${getters.uid}/inCart`)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach(doc =>
+            commit("inCart", { id:doc.id, ko:doc.ko})
+          );
+        });
+    },
+    addRireki({ commit },{cart,pay}){
+      console.log(pay)
+      console.log('addRireki呼び出し')
+      commit("addRireki",{cart,pay})
+    }
   },
-  fetchCart({ getters, commit }) {
-    firebase
-      .firestore()
-      .collection(`users/${getters.uid}/cart`)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => commit("inCart", { id: doc.id, ko: doc.ko }));
-      });
-  },
+  // fetchCart({ getters, commit }) {
+  //   firebase
+  //     .firestore()
+  //     .collection(`users/${getters.uid}/inCart`)
+  //     .get()
+  //     .then((snapshot) => {
+  //       snapshot.forEach(doc =>
+  //         commit("inCart", { id:doc.id, ko:doc.ko})
+  //       );
+  //     });
+  // },
 });

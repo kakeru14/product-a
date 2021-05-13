@@ -25,7 +25,7 @@
       
       <p id="no" v-show="!this.shopcart.length">カートに商品がありません</p>
 
-      <p id="button"><button v-show="this.shopcart.length"><router-link to="/OrderConfirm">注文に進む</router-link></button></p>
+      <p id="button"><button v-show="this.shopcart.length" @click="check">注文に進む</button></p>
 
       <!-- <p><button :disabled="!cartProducts.length" @click="checkout(cartProducts)">Checkout</button></p> -->
   </div>
@@ -62,10 +62,12 @@ export default {
         return{
             shopcart:[],
             total:0,
+            selectItem:{},
         }
     },
     created(){
-        this.cartItem();
+        //this.cartItem();
+        this.shopcart=this.$store.state.storecart
     },
     computed:{
         // cartTotalPrice(){
@@ -75,7 +77,7 @@ export default {
         //     })
         // },
         
-        ...mapState(["items"])
+        ...mapState(["items,storecart"])
     },
     methods:{
         remove(item,index){
@@ -94,6 +96,14 @@ export default {
                 this.total = this.total + el.price * el.quantity
             })
             return this.total
+        },
+        check(){
+            console.log('check呼び出そ')
+            if(!this.$store.state.login_user){
+                this.$router.push({name:'Home'})
+            }else{
+                this.$router.push({name:'OrderConfirm'})
+            }
         },
         ...mapActions(["removeCart"])
     }
