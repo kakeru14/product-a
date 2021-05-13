@@ -7,19 +7,19 @@
     <button type="button" @click="search">検索</button>
     <button type="button" @click="reset">クリア</button>
 
-    <ul>
+    <!-- <ul>
       <li class="block" v-for="(res,index) in result" :key="index">
         <p class="pic"><img class="picture" :src="res.imagePath" @click="$router.push({name:'ItemDescription',params:{list_id:res.id}})"></p>
         <p @click="$router.push({name:'ItemDescription',params:{list_id:res.id}})">{{res.name}}</p> 
         <p>{{res.price}}円</p> 
       </li>
-    </ul>
+    </ul> -->
 
     <ul>
         <li class="block" v-for="(item,index) in search" :key="index">
         <p class="pic"><img class="picture" :src="item.imagePath" @click="$router.push({name:'ItemDescription',params:{list_id:item.id}})"></p>
-        <p @click="$router.push({name:'ItemDescription',params:{list_id:item.id}})">{{item.name}}</p> 
-        <p>{{item.price}}円</p> 
+        <p class="cd" @click="$router.push({name:'ItemDescription',params:{list_id:item.id}})">{{item.name}}</p> 
+        <p class="cd">{{item.price}}円</p> 
         </li>
     </ul>
   </div>
@@ -52,6 +52,9 @@
 }
 .itemlist{
   padding-top: 100px;
+}
+.cd{
+  text-align: center;
 }
 </style>
 <script>

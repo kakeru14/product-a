@@ -6,6 +6,7 @@ import Cart from "../components/Shopping-cart.vue";
 import Itemlist from "../views/Itemlist.vue";
 import ItemDescription from "../views/ItemDescription.vue";
 import SendOrder from "../views/SendOrder.vue"
+import Rireki from "../views/Rireki.vue"
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,11 @@ const routes = [
     path: "/sendorder",
     name: "SendOrder",
     component: SendOrder,
+  },
+  {
+    path: "/rireki",
+    name: "Rireki",
+    component: Rireki,
   },
 ];
 

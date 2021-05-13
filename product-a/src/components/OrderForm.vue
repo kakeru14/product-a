@@ -9,7 +9,7 @@
 								<td>お名前</td>
 								<td><input type="text" v-model="item.destinationName"></td>
                 <td></td>
-                <td><span class="red">{{messages.destinationName}}</span></td>
+                <td><span class="red">{{this.messages.destinationName}}</span></td>
 							</tr>
 							<tr>
 								<td><div>メールアドレス</div></td>
@@ -80,14 +80,25 @@
 
 			<h3>お支払い方法</h3>
         <label>
-          <input type="radio" name="daibiki" value="0" v-model="item.paymentMethod" >代金引換
+
+          <input type="radio" name="daibiki" value="0" v-model="item.paymentMethod" @change='check()'>代金引換
         </label>
         <label>
-          <input type="radio" name="cledit" value="1" v-model="item.paymentMethod">クレジットカード
+          <input type="radio" name="cledit" value="1" v-model="item.paymentMethod" @change='check()'>クレジットカード
         </label>
         <span class="red">{{messages.paymentMethod}}</span>
-        <div>
-          <button @click="destinationTime(),check()" type="submit" class="submit"><router-link to="/sendorder">注文内容を送信する</router-link></button>
+        <div id="">
+          <!-- <router-link to="/sendorder"><button @click="destinationTime();check()" type="submit" class="submit">注文内容を送信する</button></router-link> -->
+
+          <!-- <button 
+            v-if='(messages.destinationName==="")||(messages.destinationMail==="")||(messages.destinationZipcode==="")' 
+            @click="check()" type="submit" class="submit">注文内容を送信する(入力不足)</button> -->
+        
+          <div v-if="this.allinput===5"><button v-if="this.allinput===5" type="submit" class="submit"><router-link to="/sendorder">注文内容を送信する(画面遷移)</router-link></button></div>
+          <div 
+            v-else>入力不足です</div>
+          
+
         </div>
 		</form>
     <!-- {{item.destinationName}}
@@ -108,9 +119,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import moment from "moment";
 import { Core as YubinBangoCore } from 'yubinbango-core';
 export default {
+  props:{
+    cart:{type:Array}
+  },
   data(){
     return {
       messages:{
@@ -121,15 +136,39 @@ export default {
         destinationTel:'',
         destinationTime:'',
         paymentMethod:'',
+        time:'',
+        date:'',
+        pay:''
       },
+      // item:{
+      //   destinationName: '',
+      //   destinationMail: '',
+      //   destinationZipcode:'',
+      //   destinationAddress:'',
+      //   destinationTel:'',
+      //   destinationTime:'',
+      //   paymentMethod:'',
+      //   time:'',
+      //   date:'',
+      //   pay:''
+      // },
+
       item:{ },
+      // allinput:false,
+      allinput:0
+
       // now: moment(new Date).format('YYYY/MM/DD HH:mm:ss')
+      //cart:[],
     }
   },
   computed:{
     now(){
       return Date.now()
     },
+    ...mapState(["items"])
+  },
+  created(){
+  //      this.cartItem();
   },
   methods:{
     yubinbango() {
@@ -145,24 +184,46 @@ export default {
       this.item.destinationTime = `${this.item.date} ${this.item.time}`;
       return this.item.destinationTime
     },
+
     check(){
+      this.allinput=0
+      console.log('初め'+this.allinput)
       if(!this.item.destinationName){
         this.messages.destinationName = '名前を入力して下さい'
+      }else if(!this.item.destinationName==''){
+        // allinput.push(1)
+        // this.allinput=true
+        this.allinput+=1
+        console.log(this.item.destinationName)
+        console.log('name　'+this.allinput)
+
       }
       if(!this.item.destinationMail){
         this.messages.destinationMail = 'メールアドレスを入力して下さい'
       } else if(this.item.destinationMail.indexOf('@') == -1){
         this.messages.destinationMail = 'メールアドレスの形式が不正です'
+      }else{
+        this.allinput+=1
+        console.log(this.item.destinationMail)
+        console.log('mail　'+this.allinput)
       }
       if(!this.item.destinationZipcode){
         this.messages.destinationZipcode = '郵便番号を入力して下さい'
       } else if(this.item.destinationZipcode.match(/^\d{3}-?\d{4}$/)) {
         this.messages.destinationZipcode = ''
+        this.allinput+=1
+        console.log(this.item.destinationZipcode)
+        console.log('郵便番号　'+this.allinput)
       } else {
         this.messages.destinationZipcode = '郵便番号はXXX-XXXXの形式で入力してください'
+        
       }
       if(!this.item.destinationAddress){
         this.messages.destinationAddress = '住所を入力して下さい'
+      }else{
+        this.allinput+=1
+        console.log(this.item.destinationAddress)
+        console.log('住所　'+this.allinput)
       }
       if(!this.item.destinationTel){
         this.messages.destinationTel = '電話番号を入力して下さい'
@@ -170,9 +231,16 @@ export default {
         this.messages.destinationTel = ''
       }else{
         this.messages.destinationTel = '電話番号はXXXX-XXXX-XXXXの形式で入力してください'
+        this.allinput+=1
+        console.log(this.item.destinationTel)
+        console.log('電話番号　'+this.allinput)
       }
       if(!(this.item.date || this.item.time)){
         this.messages.destinationTime = '配達日時を入力して下さい'
+      }else{
+        this.allinput+=1
+        console.log(this.item.date+this.item.time)
+        console.log('配達日時　'+this.allinput)
       }
       let now = moment();
       if(now.diff(this.item.destinationTime,'hours') >= 3){
@@ -181,13 +249,23 @@ export default {
       if(!this.item.paymentMethod){
         this.messages.paymentMethod = '決済方法を選択して下さい'
       }
+      // else{
+      //   this.allinput+=1
+      //   // this.allinput=true
+      //   // console.log(this.allinput)
+      // }
+      console.log(this.allinput)
     },
+
   },
     filters: {
       moment(date) {
       return moment(date).format('YYYY-MM-DD HH:mm:ss');
     }
-  }
+  },
+  
+  
+  
 }
 </script>
 

@@ -2,7 +2,7 @@
     <!-- table -->
   <div id="top">
     <table border=1 class="center">
-		<div>
+		<div id="sd">
 			<div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<h3 class="text-center">注文内容確認</h3>
 				<table class="table table-striped item-list-table center" >
@@ -28,7 +28,7 @@
             <tr v-for="(item,index) in shopcart"  :key="`first-${index}`">
                 <td><div class="center"><img :src="item.imagePath" class="img-responsive img-rounded item-img-center" border=1 width="100" height="100"><br></div></td>
                 <td><div class="center">{{item.name}}</div></td>
-                <td>{{item.quantity}}</td>
+                <td><div class="center">{{item.quantity}}</div></td>
                 <td><div class="center">{{item.price}}円</div></td>
                 <!-- <td><button class="center" @click="removeCart(item,index)">キャンセル</button></td> -->
             </tr>
@@ -50,7 +50,7 @@
     <!-- <div v-else></div> -->
 
     <!-- <br><ShoppingCart/> -->
-  <br><OrderForm/>
+  <br><OrderForm :cart='shopcart'></OrderForm>
    <!-- <br><button><router-link to="/sendorder">注文内容を送信する</router-link></button> -->
    <router-view/>
 </div>
@@ -85,7 +85,7 @@ export default {
             total:0,
   }},
   created(){
-        this.cartItem();
+        this.shopcart=this.$store.state.storecart
   },
   computed:{
         ...mapState(["items"])

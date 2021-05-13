@@ -6,7 +6,7 @@
 </div>
 <div id="nav">
 <router-link to="/cart" class="router-item">ショッピングカート</router-link>
-<router-link to="/OrderConfirm" class="router-item">注文履歴</router-link>
+<router-link to="/rireki" class="router-item">注文履歴</router-link>
 <router-link to="/itemlist">アイテムリスト</router-link>
 <button v-show="!$store.state.login_user" @click="login">ログイン</button>
 <!-- <router-link to="/Home" class="router-item">ログイン</router-link> -->

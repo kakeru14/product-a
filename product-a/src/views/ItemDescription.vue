@@ -28,7 +28,7 @@
 
 <h2>小計：{{target.price*selected}}円（税抜）</h2>
 
-<button id="inbutton" :disabled="!selected" type="submit" @click="kakunin({id:target.id,ko:selected})">カートに入れる</button>
+<button id="inbutton" :disabled="!selected" type="submit" @click="kakunin({id:target.id,ko:selected,item:target})">カートに入れる</button>
 </div>
 </template>
 <style scoped>
@@ -75,9 +75,9 @@ export default {
     },
     methods:{
 
-      kakunin({id,ko}){
+      kakunin({id,ko,item}){
         if(confirm('カートに追加してもよろしいですか？')){
-          this.inCart({id:id,ko:ko})
+          this.inCart({id:id,ko:ko,item:item})
         }
       },
 
