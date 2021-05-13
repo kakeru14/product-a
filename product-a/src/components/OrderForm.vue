@@ -81,10 +81,10 @@
 			<h3>お支払い方法</h3>
         <label>
 
-          <input type="radio" name="daibiki" value="0" v-model="item.paymentMethod" @change='check()'>代金引換
+          <input type="radio" name="daibiki" value="1" v-model="item.status" @change='check()'>代金引換
         </label>
         <label>
-          <input type="radio" name="cledit" value="1" v-model="item.paymentMethod" @change='check()'>クレジットカード
+          <input type="radio" name="cledit" value="2" v-model="item.status" @change='check()'>クレジットカード
         </label>
         <span class="red">{{messages.paymentMethod}}</span>
         <div id="">
@@ -94,7 +94,7 @@
             v-if='(messages.destinationName==="")||(messages.destinationMail==="")||(messages.destinationZipcode==="")' 
             @click="check()" type="submit" class="submit">注文内容を送信する(入力不足)</button> -->
         
-          <div v-if="this.allinput===5"><button v-if="this.allinput===5" type="submit" class="submit"><router-link to="/sendorder">注文内容を送信する(画面遷移)</router-link></button></div>
+          <div v-if="this.allinput===5"><button @click.prevent="submit" v-if="this.allinput===5" type="submit" class="submit">注文内容を送信する(画面遷移)</button></div>
           <div 
             v-else>入力不足です</div>
           
@@ -119,13 +119,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import moment from "moment";
 // import { Core as YubinBangoCore } from 'yubinbango-core';
 export default {
-  props:{
-    cart:{type:Array}
-  },
+  // props:{
+  //   cart:{type:Array}
+  // },
   data(){
     return {
       messages:{
@@ -155,7 +155,7 @@ export default {
 
       item:{ },
       // allinput:false,
-      allinput:0
+      allinput:0,
 
       // now: moment(new Date).format('YYYY/MM/DD HH:mm:ss')
       //cart:[],
@@ -165,12 +165,18 @@ export default {
     now(){
       return Date.now()
     },
-    ...mapState(["items"])
+    ...mapState(["items"]),
+    ...mapGetters(["cart"])
   },
   created(){
   //      this.cartItem();
   },
   methods:{
+    ...mapActions(["addRireki"]),
+    submit(){
+      this.addRireki(this.item)
+      this.$router.push({name:"SendOrder"})
+    },
     // yubinbango() {
     //     // this.item.destinationAddress = ''
     //     new YubinBangoCore(this.item.destinationZipcode, (addr)=> {
@@ -246,7 +252,7 @@ export default {
       if(now.diff(this.item.destinationTime,'hours') >= 3){
         this.messages.destinationTime = '今から3時間後の日時をご入力ください'
       }
-      if(!this.item.paymentMethod){
+      if(!this.item.status){
         this.messages.paymentMethod = '決済方法を選択して下さい'
       }
       // else{

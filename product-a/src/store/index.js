@@ -281,14 +281,39 @@ export default new Vuex.Store({
 
     uid: (state) => (state.login_user ? state.login_user.uid : null),
     getkoById: (state) => (id) => state.inCart.find((ko) => ko.id === id),
-    cart(state) {
-      const cart = state.items.filter((element) => {
-        return element.status == 1;
-      });
-      return cart;
+    // cart(state) {
+    //   const cart = state.items.filter((element) => {
+    //     return element.status == 1;
+    //   });
+    //   return cart;
+    // },
+    cart(state){
+      if(state.cart.length > 0 ){
+        const cart = state.cart.filter(cartItem => {
+          return cartItem.status == 0
+        })
+        return cart
+      }else{
+        return []
+      }
     },
+    history(state){
+      const history = state.cart.filter(cartItem => {
+        return cartItem.status != 0
+      })
+      return history
+    }
   },
   mutations: {
+    addRireki(state,newCartItem){
+
+      const index = state.cart.findIndex(item =>{
+        console.log(item.cartId)
+        console.log(newCartItem.cartId)
+        return item.cartId == newCartItem.cartId;
+      })
+      state.cart[index] = newCartItem
+    },
     setLoginUser(state, user) {
       state.login_user = user;
     },
@@ -296,29 +321,37 @@ export default new Vuex.Store({
       state.login_user = null;
     },
 
-    inCart(state, { id, ko }) {
-      // console.log(el.id);
-      //console.log(selected)
-      state.items.forEach((el) => {
-        // console.log(el.quantity);
-        if (el.id == id) {
-          el.status = 1;
-          el.quantity = el.quantity + ko;
-
-          console.log("実行後");
-        }
-        //console.log(el.status)
-      });
-      //found.status = 1
-    },
-    addCart(state, { id, ko }) {
+    inCart(state, cartItem) {
+      state.cart.push(cartItem)
+      console.log(cartItem)
       console.log("確認用");
-      const index = state.items.findIndex((item) => {
-        return item.id == id;
-      });
-      state.items[index].status = 1;
-      state.items[index].quantity += ko;
+      // const index = state.items.findIndex((item) => {
+      //   return item.id == cartItem.itemId;
+      // });
+      // state.items[index].status = 1;
+      // state.items[index].quantity += cartItem.itemNum;
+      // console.log(el.id);
+      // console.log(selected)
+      // state.items.forEach((el) => {
+      //   // console.log(el.quantity);
+      //   if (el.id == id) {
+      //     el.status = 1;
+      //     el.quantity = el.quantity + ko;
+
+      //     console.log("実行後");
+      //   }
+      //   //console.log(el.status)
+      // });
+      // found.status = 1
     },
+    // addCart(state, cartItem) {
+    //   console.log("確認用");
+    //   const index = state.items.findIndex((item) => {
+    //     return item.id == cartItem.itemId;
+    //   });
+    //   state.items[index].status = 1;
+    //   state.items[index].quantity += cartItem.itemNum;
+    // },
     removeCart(state, { id }) {
       state.items.forEach((el) => {
         if (el.id === id) {
@@ -354,21 +387,29 @@ export default new Vuex.Store({
       commit("deleteLoginUser");
     },
 
-    inCart({ getters, commit }, { id, ko }) {
+    inCart({ getters, commit }, { id, ko ,item}) {
       if (getters.uid) {
-        let cartItem = { itemId: id, itemNum: ko, status: 0 };
+        let cartItem = { 
+          itemId: id,
+           itemNum: ko, 
+           status: 0 ,
+           itemName:item.name,
+           itemGazou:item.imagePath,
+           itemPrice:item.price,
+           itemDis:item.description,
+          }
+           console.log(cartItem.itemId)
         firebase
           .firestore()
           .collection(`users/${getters.uid}/Cart`)
           .add(cartItem)
           .then((doc) => {
             console.log(doc);
+            cartItem.cartId = doc.id
             // doc.id
             // doc.data()
-            commit("addCart", {
-              id: id,
-              ko: ko,
-            });
+            console.log(cartItem)
+            commit("inCart",cartItem);
             console.log("addCart確認");
           });
       }
@@ -400,13 +441,63 @@ export default new Vuex.Store({
         .then((snapshot) => {
           snapshot.forEach((doc) => {
             console.log(doc.data().itemId);
+            console.log(doc.id)
             commit("inCart", {
-              id: doc.data().itemId,
-              ko: doc.data().itemNum,
+              cartId: doc.id,
+              itemId:doc.data().itemId,
+              itemNum: doc.data().itemNum,
               status: doc.data().status,
+              itemName: doc.data().itemName,
+              itemGazou: doc.data().itemGazou,
+              itemPrice: doc.data().itemPrice,
+              itemDis: doc.data().itemDis
             });
           });
         });
     },
+    addRireki(state,pay){
+      console.log("addEireki")
+      state.getters.cart.forEach(el => {
+
+        const newCartItem = {
+          ...el,
+          ...pay,
+        }
+      console.log(el)
+      console.log(pay)
+      console.log(newCartItem)
+        firebase.firestore().collection(`users/${state.getters.uid}/Cart`).doc(el.cartId).update(newCartItem).then(() => {
+          state.commit("addRireki",newCartItem)
+        })
+      })
+
+      // firebase.firestore().collection(`users/${state.getters.uid}/Cart`).update().then((snapshot) => {
+      //   snapshot.forEach(doc => {
+      //     //doc.data().status
+      //     //if(doc.id)
+      //   })
+      // })
+      // cart.forEach(el=>{
+      //   state.items.forEach(item=>{
+      //     if(el.id===item.id){
+      //       if(pay==0){
+      //         //item.status = 0
+      //         console.log(item.status)
+      //       //item.quantity = 0
+      //       el.status = 2
+      //       }else if(pay==1){
+      //         //item.status = 0
+      //       //item.quantity = 0
+      //       el.status = 3
+      //       }
+      //       // item.status = 0
+      //       // item.quantity = 0
+            
+      //     }
+      //   })
+      // })
+      // state.storecart=[]
+      // state.rirekiItem.push(cart)
+      },
   },
 });

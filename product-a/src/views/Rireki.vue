@@ -3,17 +3,15 @@
         <h2>注文履歴</h2>
 
         <ul>
-            <li v-for="(rireki,index) in rirekiItem" :key="`first-${index}`">
+        <li v-for="(item,index) in history" :key="index">
                 
-            <div v-for="(item,index) in rireki" :key="`second-${index}`">
-                <img :src="item.imagePath">
-               {{item.name}} x {{item.quantity}} 個
+            <div>
+                <img :src="item.itemGazou">
+               {{item.itemName}} x {{item.itemNum}} 個
                <!-- <img :src="item.imagePath">           -->
-               <p v-if="item.status===2">未入金</p>
-               <p v-else-if="item.status===3">入金済み</p>
+               <p v-if="item.status===1">未入金</p>
+               <p v-else-if="item.status===2">入金済み</p>
             </div>
-            {{date()}}
-            <hr>
             
         </li>
         </ul>
@@ -33,7 +31,7 @@ img{
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
     data(){
@@ -44,7 +42,8 @@ export default {
     computed:{
 
 
-        ...mapState(["rirekiItem"])
+        ...mapState(["rirekiItem"]),
+        ...mapGetters(["history"])
     },
     methods:{
         date(){

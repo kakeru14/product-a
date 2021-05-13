@@ -25,11 +25,11 @@
           </thead>
           
           <tbody>
-            <tr v-for="(item,index) in shopcart"  :key="`first-${index}`">
-                <td><div class="center"><img :src="item.imagePath" class="img-responsive img-rounded item-img-center" border=1 width="100" height="100"><br></div></td>
-                <td><div class="center">{{item.name}}</div></td>
-                <td><div class="center">{{item.quantity}}</div></td>
-                <td><div class="center">{{item.price}}円</div></td>
+            <tr v-for="(item,index) in cart"  :key="`first-${index}`">
+                <td><div class="center"><img :src="item.itemGazou" class="img-responsive img-rounded item-img-center" border=1 width="100" height="100"><br></div></td>
+                <td><div class="center">{{item.itemName}}</div></td>
+                <td><div class="center">{{item.itemNum}}</div></td>
+                <td><div class="center">{{item.itemPrice}}円</div></td>
                 <!-- <td><button class="center" @click="removeCart(item,index)">キャンセル</button></td> -->
             </tr>
 					</tbody>
@@ -50,7 +50,7 @@
     <!-- <div v-else></div> -->
 
     <!-- <br><ShoppingCart/> -->
-  <br><OrderForm :cart='shopcart'></OrderForm>
+  <br><OrderForm></OrderForm>
    <!-- <br><button><router-link to="/sendorder">注文内容を送信する</router-link></button> -->
    <router-view/>
 </div>
@@ -59,7 +59,7 @@
 <script>
 import OrderForm from '../components/OrderForm.vue';
 // import ShoppingCart from '../components/Shopping-cart.vue';
-import {mapState } from 'vuex'
+import {mapGetters, mapState } from 'vuex'
 export default {
   components: {
     OrderForm,
@@ -85,23 +85,25 @@ export default {
             total:0,
   }},
   created(){
-        this.shopcart=this.$store.state.storecart
+        this.shopcart=this.$store.state.cart
   },
   computed:{
-        ...mapState(["items"])
+        ...mapState(["items"]),
+        ...mapGetters(["cart"])
+
   },
   methods:{
-        cartItem(){
-            this.items.forEach(el=>{
-                if(el.status===1){
-                    this.shopcart.push(el)
-                }
-            })
-        },
+        // cartItem(){
+        //     this.items.forEach(el=>{
+        //         if(el.status===1){
+        //             this.shopcart.push(el)
+        //         }
+        //     })
+        // },
         cartTotalPrice(){
             this.total=0;
-            this.shopcart.forEach(el=>{
-                this.total = this.total + el.price*el.quantity
+            this.cart.forEach(el=>{
+                this.total = this.total + el.itemPrice * el.itemNum
             })
             return this.total
         },

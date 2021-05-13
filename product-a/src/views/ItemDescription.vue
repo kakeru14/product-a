@@ -68,7 +68,10 @@ export default {
   },
   created(){
     const targetItem = this.$store.getters.getItemById(this.$route.params.list_id);
-    this.target = targetItem
+    if(targetItem){
+      this.target = targetItem
+    }
+    //this.target = targetItem
     console.log(this.target)
   },
   components: {
@@ -84,6 +87,11 @@ export default {
       ...mapActions(["inCart"])
     },
      computed:{
+      //  target(){
+      //    const targetItem = this.$store.getters.getItemById(this.$route.params.list_id);
+      //    this.target = targetItem
+      //    console.log(this.target)
+      //  },
        ...mapState(["items"])
     }
     }      

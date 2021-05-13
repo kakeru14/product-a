@@ -12,20 +12,20 @@
               <th>/</th>
           </tr>
           <tr v-for="(item,index) in cart" :key="index">
-              <td><img id="picture" :src="item.imagePath"></td>
-              <td>{{item.name}}</td>
-              <td>{{item.price}}円</td>
-              <td>{{item.quantity}}</td>
-              <td><button @click="deleteConfirm(item.id);remove(index)">カートから削除</button></td>
+              <td><img id="picture" :src="item.itemGazou"></td>
+              <td>{{item.itemName}}</td>
+              <td>{{item.itemPrice}}円</td>
+              <td>{{item.itemNum}}</td>
+              <td><button @click="deleteConfirm(item.cartId,index)">カートから削除</button></td>
           </tr>
       </table>
       <h2 v-show="cartTotalPrice()">合計金額 : {{Math.round(cartTotalPrice())}}円</h2>
       <h2 v-show="cartTotalPrice()">消費税 : {{Math.round(cartTotalPrice()*0.1)}}円</h2>
       <h2 v-show="cartTotalPrice()">ご注文金額合計 : {{Math.round(cartTotalPrice()*1.1)}}円（税込）</h2>
       
-      <p id="no" v-show="!this.shopcart.length">カートに商品がありません</p>
+      <p id="no" v-show="!this.cart.length">カートに商品がありません</p>
 
-      <p id="button"><button v-show="this.shopcart.length" @click="check()">注文に進む</button></p>
+      <p id="button"><button v-show="this.cart.length" @click="check()">注文に進む</button></p>
 
       <!-- <p><button :disabled="!cartProducts.length" @click="checkout(cartProducts)">Checkout</button></p> -->
   </div>
@@ -72,14 +72,14 @@ export default {
    
     },
     computed:{
-        cartItem(){
-            if(this.$store.state.items){
+        // cartItem(){
+        //     if(this.$store.state.items){
                 
-               return console.log(this.$store.state.items);
-            }else{
-                return console.log("エラー");
-            }
-        },
+        //        return console.log(this.$store.state.items);
+        //     }else{
+        //         return console.log("エラー");
+        //     }
+        // },
         // cartTotalPrice(){
         //     this.shopcart.forEach(el=>{
         //         this.total = this.total + el.price
@@ -95,11 +95,11 @@ export default {
         remove(index){
             this.shopcart.splice(index,1)
         },
-        deleteConfirm(id){
+        deleteConfirm(id,index){
           if(confirm("削除して宜しいでしょうか")){
               this.removeCart({id})
           }
-
+          this.remove(index)
         },
         // cartItem(){
         //     this.items.forEach(el=>{
