@@ -11,12 +11,12 @@
               <th>個数</th>
               <th>/</th>
           </tr>
-          <tr v-for="(item,index) in cart" :key="item.id">
+          <tr v-for="(item,index) in cart" :key="index">
               <td><img id="picture" :src="item.imagePath"></td>
               <td>{{item.name}}</td>
               <td>{{item.price}}円</td>
               <td>{{item.quantity}}</td>
-              <td><button @click="removeCart(item);remove(item,index)">カートから削除</button></td>
+              <td><button @click="deleteConfirm(item.id);remove(index)">カートから削除</button></td>
           </tr>
       </table>
       <h2 v-show="cartTotalPrice()">合計金額 : {{Math.round(cartTotalPrice())}}円</h2>
@@ -25,7 +25,7 @@
       
       <p id="no" v-show="!this.shopcart.length">カートに商品がありません</p>
 
-      <p id="button"><button v-show="this.shopcart.length" @click="check">注文に進む</button></p>
+      <p id="button"><button v-show="this.shopcart.length" @click="check()">注文に進む</button></p>
 
       <!-- <p><button :disabled="!cartProducts.length" @click="checkout(cartProducts)">Checkout</button></p> -->
   </div>
@@ -92,8 +92,14 @@ export default {
         
     },
     methods:{
-        remove(item,index){
+        remove(index){
             this.shopcart.splice(index,1)
+        },
+        deleteConfirm(id){
+          if(confirm("削除して宜しいでしょうか")){
+              this.removeCart({id})
+          }
+
         },
         // cartItem(){
         //     this.items.forEach(el=>{

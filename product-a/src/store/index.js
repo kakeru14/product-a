@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    cart: [],
     items: [
       {
         id: 1,
@@ -318,19 +319,25 @@ export default new Vuex.Store({
       state.items[index].status = 1;
       state.items[index].quantity += ko;
     },
-    // removeCart(state, { items }) {
-    //   const index = el.id.findIndex((el) => el.id == id);
-    //   this.el.id.splice(index, 1);
-    // },
-    removeCart(state, item) {
-      console.log(item);
+    removeCart(state, { id }) {
       state.items.forEach((el) => {
-        if (el.id == item.id) {
+        if (el.id === id) {
           el.status = 0;
-          el.quantity = 0;
         }
       });
+      // const index = state.items.findIndex((el) => el.id == item.id);
+      // // console.log(index);
+      // item.id.splice(index, 1);
     },
+    // removeCart(state, item) {
+    //   console.log(item);
+    //   state.items.forEach((el) => {
+    //     if (el.id == item.id) {
+    //       el.status = 0;
+    //       el.quantity = 0;
+    //     }
+    //   });
+    // },
   },
   actions: {
     login() {
@@ -356,6 +363,8 @@ export default new Vuex.Store({
           .add(cartItem)
           .then((doc) => {
             console.log(doc);
+            // doc.id
+            // doc.data()
             commit("addCart", {
               id: id,
               ko: ko,
@@ -364,24 +373,26 @@ export default new Vuex.Store({
           });
       }
     },
-    // removeCart({ getters, commit }, id) {
-    //   if (getters.uid) {
-    //     firebase
-    //       .firestore()
-    //       .collection(`user/${getters.uid}/Cart`)
-    //       .id.delete()
-    //       .then(() => {
-    //         commit("deleteAddress", { id });
-    //       });
-    //   }
-    // },
-
-    removeCart({ commit }, item) {
-      console.log(item);
-      commit("removeCart", item);
+    removeCart({ getters, commit }, { id }) {
+      if (getters.uid) {
+        firebase
+          .firestore()
+          .collection(`user/${getters.uid}/Cart`)
+          .doc()
+          .delete()
+          .then(() => {
+            commit("removeCart", { id });
+          });
+      }
     },
 
+    // removeCart({ commit }, item) {
+    //   console.log(item);
+    //   commit("removeCart", item);
+    // },
+
     fetchCart({ getters, commit }) {
+      // const x = doc;
       firebase
         .firestore()
         .collection(`users/${getters.uid}/Cart`)

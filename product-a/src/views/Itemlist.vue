@@ -90,15 +90,15 @@ export default {
     }
   },
   computed:{
-    search(){
-      const searchitem = []
-      this.items.forEach(e=>{
-                if(e.name.indexOf(this.value)!==-1){
-                    searchitem.push(e)
-                }
-            })
-            return searchitem
-    },
+    // search(){
+    //   const searchitem = []
+    //   this.items.forEach(e=>{
+    //             if(e.name.indexOf(this.value)!==-1){
+    //                 searchitem.push(e)
+    //             }
+    //         })
+    //         return searchitem
+    // },
      ...mapState(["items"])
   }  
   }  

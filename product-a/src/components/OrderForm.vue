@@ -121,7 +121,7 @@
 <script>
 import { mapState } from 'vuex'
 import moment from "moment";
-import { Core as YubinBangoCore } from 'yubinbango-core';
+// import { Core as YubinBangoCore } from 'yubinbango-core';
 export default {
   props:{
     cart:{type:Array}
@@ -171,15 +171,15 @@ export default {
   //      this.cartItem();
   },
   methods:{
-    yubinbango() {
-        // this.item.destinationAddress = ''
-        new YubinBangoCore(this.item.destinationZipcode, (addr)=> {
-        this.item.destinationAddress = addr.region // 都道府県
-        this.item.destinationAddress += addr.locality // 市区町村
-        this.item.destinationAddress += addr.street // 町域
-        // console.log(this.item.destinationAddress)
-      })
-    },
+    // yubinbango() {
+    //     // this.item.destinationAddress = ''
+    //     new YubinBangoCore(this.item.destinationZipcode, (addr)=> {
+    //     this.item.destinationAddress = addr.region // 都道府県
+    //     this.item.destinationAddress += addr.locality // 市区町村
+    //     this.item.destinationAddress += addr.street // 町域
+    //     // console.log(this.item.destinationAddress)
+    //   })
+    // },
     destinationTime(){
       this.item.destinationTime = `${this.item.date} ${this.item.time}`;
       return this.item.destinationTime
@@ -200,8 +200,8 @@ export default {
       }
       if(!this.item.destinationMail){
         this.messages.destinationMail = 'メールアドレスを入力して下さい'
-      } else if(this.item.destinationMail.indexOf('@') == -1){
-        this.messages.destinationMail = 'メールアドレスの形式が不正です'
+      // } else if(this.item.destinationMail.indexOf('@') == -1){
+      //   this.messages.destinationMail = 'メールアドレスの形式が不正です'
       }else{
         this.allinput+=1
         console.log(this.item.destinationMail)
