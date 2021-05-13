@@ -272,12 +272,7 @@ export default new Vuex.Store({
     ],
     login_user: null,
     selectedItems: [],
-<<<<<<< HEAD
     inCart: null,
-=======
-    rirekiItem:[],
-    storecart:[]
->>>>>>> 711737ccd46baeda3ef1fcc6d80aed6b92368cac
   },
   getters: {
     getItemById: (state) => (id) => state.items.find((item) => item.id === id),
@@ -301,7 +296,6 @@ export default new Vuex.Store({
     },
 
     inCart(state, { id, ko }) {
-<<<<<<< HEAD
       // console.log(el.id);
       //console.log(selected)
       state.items.forEach((el) => {
@@ -309,15 +303,8 @@ export default new Vuex.Store({
         if (el.id == id) {
           el.status = 1;
           el.quantity = el.quantity + ko;
+
           console.log("実行後");
-=======
-      console.log(id);
-      state.items.forEach((el) => {
-        if (el.id == id) {
-          // el.status = 1;
-          el.quantity = ko;
-          state.storecart.push(el)
->>>>>>> 711737ccd46baeda3ef1fcc6d80aed6b92368cac
         }
         //console.log(el.status)
       });
@@ -339,35 +326,11 @@ export default new Vuex.Store({
       console.log(item);
       state.items.forEach((el) => {
         if (el.id == item.id) {
-          //el.status = 0;
-          //el.quantity = 0;
-          this.store.storecart.splice(el,1)
+          el.status = 0;
+          el.quantity = 0;
         }
       });
     },
-    addRireki(state,{cart,pay}){
-      cart.forEach(el=>{
-        state.items.forEach(item=>{
-          if(el.id===item.id){
-            if(pay==0){
-              //item.status = 0
-              console.log(item.status)
-            //item.quantity = 0
-            el.status = 2
-            }else if(pay==1){
-              //item.status = 0
-            //item.quantity = 0
-            el.status = 3
-            }
-            // item.status = 0
-            // item.quantity = 0
-            
-          }
-        })
-      })
-      state.storecart=[]
-      state.rirekiItem.push(cart)
-      }
   },
   actions: {
     login() {
@@ -384,7 +347,6 @@ export default new Vuex.Store({
       commit("deleteLoginUser");
     },
 
-<<<<<<< HEAD
     inCart({ getters, commit }, { id, ko }) {
       if (getters.uid) {
         let cartItem = { itemId: id, itemNum: ko, status: 0 };
@@ -401,20 +363,6 @@ export default new Vuex.Store({
             console.log("addCart確認");
           });
       }
-=======
-    inCart({ commit }, { id, ko }) {
-      //if(getters.uid){
-        // firebase
-        //  .firestore()
-        //  .collection(`users/${getters.uid}/inCart`)
-        //  .add(item)
-        //  .then(doc=>{
-          commit("inCart", { id,ko });
-          console.log(id);
-          console.log(ko);
-         //})
-      //}
->>>>>>> 711737ccd46baeda3ef1fcc6d80aed6b92368cac
     },
     // removeCart({ getters, commit }, id) {
     //   if (getters.uid) {
@@ -432,7 +380,6 @@ export default new Vuex.Store({
       console.log(item);
       commit("removeCart", item);
     },
-<<<<<<< HEAD
 
     fetchCart({ getters, commit }) {
       firebase
@@ -451,34 +398,4 @@ export default new Vuex.Store({
         });
     },
   },
-=======
-    fetchCart({ getters, commit }) {
-      firebase
-        .firestore()
-        .collection(`users/${getters.uid}/inCart`)
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach(doc =>
-            commit("inCart", { id:doc.id, ko:doc.ko})
-          );
-        });
-    },
-    addRireki({ commit },{cart,pay}){
-      console.log(pay)
-      console.log('addRireki呼び出し')
-      commit("addRireki",{cart,pay})
-    }
-  },
-  // fetchCart({ getters, commit }) {
-  //   firebase
-  //     .firestore()
-  //     .collection(`users/${getters.uid}/inCart`)
-  //     .get()
-  //     .then((snapshot) => {
-  //       snapshot.forEach(doc =>
-  //         commit("inCart", { id:doc.id, ko:doc.ko})
-  //       );
-  //     });
-  // },
->>>>>>> 711737ccd46baeda3ef1fcc6d80aed6b92368cac
 });
