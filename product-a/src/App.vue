@@ -31,7 +31,7 @@ export default {
       firebase.auth().onAuthStateChanged(user=>{
         if(user){
           this.setLoginUser(user)
-          this.fetchCart();
+          this.fetchCart();          
           if(this.$router.currentRoute.name ==="Home"){
             this.$router.push({name:"Itemlist"});
           }

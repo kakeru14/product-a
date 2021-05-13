@@ -272,10 +272,20 @@ export default new Vuex.Store({
     ],
     login_user: null,
     selectedItems: [],
+    inCart: null,
   },
   getters: {
     getItemById: (state) => (id) => state.items.find((item) => item.id === id),
     userName: (state) => (state.login_user ? state.login_user.displayName : ""),
+
+    uid: (state) => (state.login_user ? state.login_user.uid : null),
+    getkoById: (state) => (id) => state.inCart.find((ko) => ko.id === id),
+    cart(state) {
+      const cart = state.items.filter((element) => {
+        return element.status == 1;
+      });
+      return cart;
+    },
   },
   mutations: {
     setLoginUser(state, user) {
@@ -286,18 +296,31 @@ export default new Vuex.Store({
     },
 
     inCart(state, { id, ko }) {
-      console.log(id);
+      // console.log(el.id);
       //console.log(selected)
       state.items.forEach((el) => {
-        //  console.log(el.id)
+        // console.log(el.quantity);
         if (el.id == id) {
           el.status = 1;
           el.quantity = el.quantity + ko;
+          console.log("実行後");
         }
         //console.log(el.status)
       });
       //found.status = 1
     },
+    addCart(state, { id, ko }) {
+      console.log("確認用");
+      const index = state.items.findIndex((item) => {
+        return item.id == id;
+      });
+      state.items[index].status = 1;
+      state.items[index].quantity += ko;
+    },
+    // removeCart(state, { items }) {
+    //   const index = el.id.findIndex((el) => el.id == id);
+    //   this.el.id.splice(index, 1);
+    // },
     removeCart(state, item) {
       console.log(item);
       state.items.forEach((el) => {
@@ -323,23 +346,55 @@ export default new Vuex.Store({
       commit("deleteLoginUser");
     },
 
-    inCart({ commit }, { id, ko }) {
-      commit("inCart", { id, ko });
-      console.log(id);
-      console.log(ko);
+    inCart({ getters, commit }, { id, ko }) {
+      if (getters.uid) {
+        let cartItem = { itemId: id, itemNum: ko, status: 0 };
+        firebase
+          .firestore()
+          .collection(`users/${getters.uid}/Cart`)
+          .add(cartItem)
+          .then((doc) => {
+            console.log(doc);
+            commit("addCart", {
+              id: id,
+              ko: ko,
+            });
+            console.log("addCart確認");
+          });
+      }
     },
+    // removeCart({ getters, commit }, id) {
+    //   if (getters.uid) {
+    //     firebase
+    //       .firestore()
+    //       .collection(`user/${getters.uid}/Cart`)
+    //       .id.delete()
+    //       .then(() => {
+    //         commit("deleteAddress", { id });
+    //       });
+    //   }
+    // },
+
     removeCart({ commit }, item) {
       console.log(item);
       commit("removeCart", item);
     },
-  },
-  fetchCart({ getters, commit }) {
-    firebase
-      .firestore()
-      .collection(`users/${getters.uid}/cart`)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => commit("inCart", { id: doc.id, ko: doc.ko }));
-      });
+
+    fetchCart({ getters, commit }) {
+      firebase
+        .firestore()
+        .collection(`users/${getters.uid}/Cart`)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            console.log(doc.data().itemId);
+            commit("inCart", {
+              id: doc.data().itemId,
+              ko: doc.data().itemNum,
+              status: doc.data().status,
+            });
+          });
+        });
+    },
   },
 });

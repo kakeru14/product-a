@@ -58,6 +58,8 @@ import {mapActions, mapState} from "vuex"
 
 export default {
   // name: 'ItemDescription',
+
+  
   data(){
     return{
       target:{},

@@ -3,7 +3,7 @@
 
   <div id="cart">
       <h2>ショッピングカート</h2>
-      <table border=1 v-show="this.shopcart.length">
+      <table border=1>
           <tr>
               <th>商品画像</th>
               <th>商品名</th>
@@ -11,7 +11,7 @@
               <th>個数</th>
               <th>/</th>
           </tr>
-          <tr v-for="(item,index) in shopcart" :key="`first-${index}`">
+          <tr v-for="(item,index) in cart" :key="item.id">
               <td><img id="picture" :src="item.imagePath"></td>
               <td>{{item.name}}</td>
               <td>{{item.price}}円</td>
@@ -54,7 +54,7 @@ h2{
 
 </style>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
@@ -65,9 +65,17 @@ export default {
         }
     },
     created(){
-        this.cartItem();
+        // this.cartItem();
     },
     computed:{
+        cartItem(){
+            if(this.$store.state.items){
+                
+               return console.log(this.$store.state.items);
+            }else{
+                return console.log("エラー");
+            }
+        },
         // cartTotalPrice(){
         //     this.shopcart.forEach(el=>{
         //         this.total = this.total + el.price
@@ -75,19 +83,19 @@ export default {
         //     })
         // },
         
-        ...mapState(["items"])
+        ...mapGetters(["cart"])
     },
     methods:{
         remove(item,index){
             this.shopcart.splice(index,1)
         },
-        cartItem(){
-            this.items.forEach(el=>{
-                if(el.status===1){
-                    this.shopcart.push(el)
-                }
-            })
-        },
+        // cartItem(){
+        //     this.items.forEach(el=>{
+        //         if(el.status===1){
+        //             this.shopcart.push(el)
+        //         }
+        //     })
+        // },
         cartTotalPrice(){
             this.total=0;
             this.shopcart.forEach(el=>{
