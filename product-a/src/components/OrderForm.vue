@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import moment from "moment";
 import { Core as YubinBangoCore } from 'yubinbango-core';
 export default {
@@ -140,18 +140,18 @@ export default {
         date:'',
         pay:''
       },
-      item:{
-        destinationName: '',
-        destinationMail: '',
-        destinationZipcode:'',
-        destinationAddress:'',
-        destinationTel:'',
-        destinationTime:'',
-        paymentMethod:'',
-        time:'',
-        date:'',
-        pay:''
-      },
+      // item:{
+      //   destinationName: '',
+      //   destinationMail: '',
+      //   destinationZipcode:'',
+      //   destinationAddress:'',
+      //   destinationTel:'',
+      //   destinationTime:'',
+      //   paymentMethod:'',
+      //   time:'',
+      //   date:'',
+      //   pay:''
+      // },
 
       item:{ },
       // allinput:false,
