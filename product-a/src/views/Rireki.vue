@@ -9,8 +9,8 @@
                 <img :src="item.itemGazou">
                {{item.itemName}} x {{item.itemNum}} 個
                <!-- <img :src="item.imagePath">           -->
-               <p v-if="item.status===1">未入金</p>
-               <p v-else-if="item.status===2">入金済み</p>
+               <span v-if="item.status==1">未入金</span>
+               <span v-else-if="item.status==2">入金済み</span>
             </div>
             
         </li>
@@ -26,6 +26,9 @@
 img{
     width: 100px;
     height: 100px;
+}
+span{
+    color: red;
 }
 </style>
 

@@ -94,11 +94,10 @@
             v-if='(messages.destinationName==="")||(messages.destinationMail==="")||(messages.destinationZipcode==="")' 
             @click="check()" type="submit" class="submit">注文内容を送信する(入力不足)</button> -->
         
-          <div v-if="this.allinput===5"><button @click.prevent="submit" v-if="this.allinput===5" type="submit" class="submit">注文内容を送信する(画面遷移)</button></div>
+          <div v-if="this.allinput===5"><button @click.prevent="submit" v-if="this.allinput===5" type="submit" class="submit">注文内容を送信する</button></div>
           <div 
             v-else>入力不足です</div>
           
-
         </div>
 		</form>
     <!-- {{item.destinationName}}
